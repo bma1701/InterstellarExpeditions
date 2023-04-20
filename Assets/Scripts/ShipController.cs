@@ -8,6 +8,7 @@ public class ShipController : MonoBehaviour
     private Vector2 movement;
     public float maxVelocity;
     public float rotationSpeed;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -23,6 +24,14 @@ public class ShipController : MonoBehaviour
         ThrustForward(yAxis);
         Rotate(transform, xAxis * rotationSpeed);
         ClampVelocity();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Asteroid"))
+        {
+            Die();
+        }
     }
 
     private void ClampVelocity()
@@ -42,5 +51,10 @@ public class ShipController : MonoBehaviour
     private void Rotate(Transform t, float amount)
     {
         t.Rotate(0, 0, amount);
+    }
+
+    private void Die()
+    {
+        gameObject.SetActive(false);
     }
 }

@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Asteroid
   - Planet
+  - North
+  - South
+  - East
+  - West
   layers:
   - Default
   - TransparentFX

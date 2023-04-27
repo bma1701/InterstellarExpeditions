@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ShipController : MonoBehaviour
 {
@@ -47,10 +48,20 @@ public class ShipController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Asteroid"))
+        if (collision.gameObject.CompareTag("Asteroid"))
         {
             Die();
+            Destroy(collision.gameObject);
+
         }
+        else if (collision.gameObject.CompareTag("Planet1"))
+            SceneManager.LoadScene("Scenes/Planet1");
+        else if (collision.gameObject.CompareTag("Planet2"))
+            SceneManager.LoadScene("Scenes/Planet2");
+        else if (collision.gameObject.CompareTag("Planet3"))
+            SceneManager.LoadScene("Scenes/Planet3");
+        else if (collision.gameObject.CompareTag("Planet4"))
+            SceneManager.LoadScene("Scenes/Planet4");
     }
 
     private void ClampVelocity()
@@ -64,7 +75,8 @@ public class ShipController : MonoBehaviour
     private void ThrustForward(float amount)
     {
         Vector2 force = transform.up * amount;
-        rb.AddForce(force * 3);
+        rb.AddForce(force * 3
+            );
         currentFuel -= amount * 8 * Time.deltaTime;
         fuelBar.SetFuel(currentFuel);
     }
@@ -89,7 +101,7 @@ public class ShipController : MonoBehaviour
         transform.localScale = new Vector3(0,0,0);
         yield return new WaitForSeconds(duration);
         transform.position = startPos;
-        transform.localScale = new Vector3(1,1.5f,1);
+        transform.localScale = new Vector3(4,4,1);
         rb.simulated = true;
         fuelBar.SetFuel(currentFuel);
     }

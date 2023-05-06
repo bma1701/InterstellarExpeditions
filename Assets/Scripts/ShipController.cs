@@ -9,11 +9,16 @@ public class ShipController : MonoBehaviour
     private Vector2 movement;
     private Vector2 startPos;
     private Quaternion startRotation;
+    public AudioClip onDeathExpl; // Death Explosion Sound
     public float maxVelocity;
     public float rotationSpeed;
     public float currentFuel;
     public float startingFuel = 60f;
     public FuelScript fuelBar;
+    AudioSource thrusters;
+    bool t_playing;
+    bool isDead = false;
+    //bool t_changed;
 
     // Start is called before the first frame update
     private void Start()
@@ -23,6 +28,7 @@ public class ShipController : MonoBehaviour
         currentFuel = startingFuel;
         fuelBar.SetMaxFuel(startingFuel);
         startRotation = transform.rotation;
+        thrusters = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -43,6 +49,22 @@ public class ShipController : MonoBehaviour
         {
             currentFuel = 200f;
             fuelBar.SetFuel(currentFuel);
+        }
+        if(Input.GetKey(KeyCode.W))
+        {
+            if (!isDead)
+            {
+                if (!thrusters.isPlaying)
+                {
+                    //AudioSource.Play(thrusters);
+                    thrusters.Play();
+                }
+            }
+        }
+        if(Input.GetKeyUp(KeyCode.W))
+        {
+            thrusters.Stop();
+            //thrusters.Pause();
         }
     }
 
@@ -88,12 +110,18 @@ public class ShipController : MonoBehaviour
 
     private void Die()
     {
+        if (thrusters.isPlaying)
+        {
+            thrusters.Stop();
+        }
+        AudioSource.PlayClipAtPoint(onDeathExpl, transform.position);
         currentFuel = startingFuel;
         StartCoroutine(Respawn(3f));
     }
 
     IEnumerator Respawn(float duration)
     {
+        isDead = true;
         rb.simulated = false;
         rb.velocity = Vector2.zero;
         rb.angularVelocity = 0;
@@ -101,6 +129,7 @@ public class ShipController : MonoBehaviour
         transform.localScale = new Vector3(0,0,0);
         yield return new WaitForSeconds(duration);
         transform.position = startPos;
+        isDead = false;
         transform.localScale = new Vector3(4,4,1);
         rb.simulated = true;
         fuelBar.SetFuel(currentFuel);

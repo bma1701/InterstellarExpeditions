@@ -292,6 +292,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &348702641
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 348702642}
+  m_Layer: 0
+  m_Name: BSP
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &348702642
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 348702641}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2017116407}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,7 +616,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7d8a79f60c276f84599995d29e61c577, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.675
+  m_Volume: 0.524
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -669,6 +700,12 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!4 &728036510 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7915263302230232401, guid: cd90f6b74dd9cfb47b385c88bb009efd,
+    type: 3}
+  m_PrefabInstance: {fileID: 7915263302655719923}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1020466583
 GameObject:
   m_ObjectHideFlags: 0
@@ -698,7 +735,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 089558c654c19cc409d8bffd0dcc19a0, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1123,7 +1160,7 @@ GameObject:
   - component: {fileID: 1561531562}
   m_Layer: 1
   m_Name: AsteroidBelt
-  m_TagString: Asteroid
+  m_TagString: AsteroidBelt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4517,6 +4554,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1665765503}
   m_CullTransparentMesh: 1
+--- !u!1 &2017116406
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2017116407}
+  - component: {fileID: 2017116408}
+  m_Layer: 0
+  m_Name: BulletSpawnpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2017116407
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017116406}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 348702642}
+  m_Father: {fileID: 728036510}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2017116408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017116406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55627b2ca1ae361469e3caf7e47aa9db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 6223012225862070766, guid: 26f82461d15094246ba5978814e73d2b,
+    type: 3}
+  BSP: {fileID: 348702642}
+  fireForce: 10
 --- !u!1001 &7915263302655719923
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4579,11 +4665,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7915263302230232402, guid: cd90f6b74dd9cfb47b385c88bb009efd,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7915263302230232420, guid: cd90f6b74dd9cfb47b385c88bb009efd,
         type: 3}
       propertyPath: m_Name
       value: PlayerShip
       objectReference: {fileID: 0}
+    - target: {fileID: 7915263302230232428, guid: cd90f6b74dd9cfb47b385c88bb009efd,
+        type: 3}
+      propertyPath: cannons
+      value: 
+      objectReference: {fileID: 2017116408}
     - target: {fileID: 7915263302230232428, guid: cd90f6b74dd9cfb47b385c88bb009efd,
         type: 3}
       propertyPath: fuelBar
@@ -4596,8 +4692,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7915263302230232428, guid: cd90f6b74dd9cfb47b385c88bb009efd,
         type: 3}
+      propertyPath: shootDelay
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7915263302230232428, guid: cd90f6b74dd9cfb47b385c88bb009efd,
+        type: 3}
       propertyPath: onDeathExpl
       value: 
       objectReference: {fileID: 8300000, guid: f8d8f163cae244a498e377787827425a, type: 3}
+    - target: {fileID: 7915263302230232428, guid: cd90f6b74dd9cfb47b385c88bb009efd,
+        type: 3}
+      propertyPath: laserGunSound
+      value: 
+      objectReference: {fileID: 8300000, guid: eecba4885b40ec34f8e787268529cc53, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd90f6b74dd9cfb47b385c88bb009efd, type: 3}

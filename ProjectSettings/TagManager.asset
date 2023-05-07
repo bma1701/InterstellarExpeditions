@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Planet4
+  - Planet2
+  - Planet1
+  - Asteroid
+  - Planet3
+  - AsteroidBelt
   layers:
   - Default
   - TransparentFX

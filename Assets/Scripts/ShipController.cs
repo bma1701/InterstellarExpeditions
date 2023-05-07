@@ -10,14 +10,19 @@ public class ShipController : MonoBehaviour
     private Vector2 startPos;
     private Quaternion startRotation;
     public AudioClip onDeathExpl; // Death Explosion Sound
+    public AudioClip laserGunSound; // LaserCannon shoot sound
     public float maxVelocity;
     public float rotationSpeed;
     public float currentFuel;
     public float startingFuel = 60f;
     public FuelScript fuelBar;
-    AudioSource thrusters;
-    bool t_playing;
-    bool isDead = false;
+    AudioSource thrusters; // thruster sound
+    bool t_playing; 
+    bool isDead = false; // bool for checking if ship is alive
+    
+    public PShipCannons cannons; // reference to the laser cannon object
+    bool canShoot = true;
+    public float shootDelay;
     //bool t_changed;
 
     // Start is called before the first frame update
@@ -66,15 +71,43 @@ public class ShipController : MonoBehaviour
             thrusters.Stop();
             //thrusters.Pause();
         }
+        if (Input.GetKey("space") || Input.GetMouseButton(0))
+        {
+            if (!isDead)
+            {
+                if(canShoot)
+                {
+                    AudioSource.PlayClipAtPoint(laserGunSound, transform.position);
+                    cannons.Shoot(transform.rotation);
+                    StartCoroutine(ShootTimer());
+                }
+                
+            }
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        /*
+        if (collision.gameObject.CompareTag("EnemyLaser"))
+        {
+        // play audio of laser hitting ship?
+        Die();
+        Destroy(collision.gameObject);
+
+        } 
+         */
+
         if (collision.gameObject.CompareTag("Asteroid"))
         {
             Die();
-            Destroy(collision.gameObject);
+            Destroy(collision.gameObject); // Destroys asteroid belt, not intended. (fixed)
 
+        }
+        if (collision.gameObject.CompareTag("AsteroidBelt"))
+        {
+            Die();
+            //Destroy(collision.gameObject); // Destroys asteroid belt, not intended.
         }
         else if (collision.gameObject.CompareTag("Planet1"))
             SceneManager.LoadScene("Scenes/Planet1");
@@ -134,4 +167,13 @@ public class ShipController : MonoBehaviour
         rb.simulated = true;
         fuelBar.SetFuel(currentFuel);
     }
+
+    IEnumerator ShootTimer()
+    {
+        print("Waiting...\n");
+        canShoot = false;
+        yield return new WaitForSeconds(shootDelay);
+        canShoot = true;
+    }
+
 }

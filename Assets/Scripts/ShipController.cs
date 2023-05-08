@@ -23,7 +23,13 @@ public class ShipController : MonoBehaviour
     public PShipCannons cannons; // reference to the laser cannon object
     bool canShoot = true;
     public float shootDelay;
+    public ParticleSystem PSR;
+    public ParticleSystem PSO;
+    public ParticleSystem PSB;
+    public ParticleSystem PSD1;
+    public ParticleSystem PSD2;
     //bool t_changed;
+
 
     // Start is called before the first frame update
     private void Start()
@@ -59,10 +65,12 @@ public class ShipController : MonoBehaviour
         {
             if (!isDead)
             {
+                ToggleParticles(1);
                 if (!thrusters.isPlaying)
                 {
                     //AudioSource.Play(thrusters);
                     thrusters.Play();
+                    //PSROB.off/Stop()
                 }
             }
         }
@@ -70,6 +78,7 @@ public class ShipController : MonoBehaviour
         {
             thrusters.Stop();
             //thrusters.Pause();
+            ToggleParticles(0);
         }
         if (Input.GetKey("space") || Input.GetMouseButton(0))
         {
@@ -83,6 +92,31 @@ public class ShipController : MonoBehaviour
                 }
                 
             }
+        }
+    }
+
+    private void ToggleParticles(int state)
+    {
+        if (state == 0)
+        {
+            //print("Made it to TP0\n");
+            PSO.Stop();
+            PSR.Stop();
+            PSB.Stop();
+        } else
+        {
+            //print("Made it to TP1\n");
+            if (!PSO.isPlaying)
+            {
+                PSO.Play();
+                PSR.Play();
+                PSB.Play();
+            }
+        }
+        if (state == 2)
+        {
+            PSD1.Play();
+            PSD2.Play();
         }
     }
 
@@ -143,6 +177,8 @@ public class ShipController : MonoBehaviour
 
     private void Die()
     {
+        ToggleParticles(0);
+        ToggleParticles(2);
         if (thrusters.isPlaying)
         {
             thrusters.Stop();
@@ -154,6 +190,7 @@ public class ShipController : MonoBehaviour
 
     IEnumerator Respawn(float duration)
     {
+        ToggleParticles(0);
         isDead = true;
         rb.simulated = false;
         rb.velocity = Vector2.zero;
@@ -170,7 +207,7 @@ public class ShipController : MonoBehaviour
 
     IEnumerator ShootTimer()
     {
-        print("Waiting...\n");
+        //print("Waiting...\n");
         canShoot = false;
         yield return new WaitForSeconds(shootDelay);
         canShoot = true;

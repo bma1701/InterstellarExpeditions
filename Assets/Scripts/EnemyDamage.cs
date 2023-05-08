@@ -7,6 +7,8 @@ public class EnemyDamage : MonoBehaviour
     public float damage;
     public int health;
     public int speed;
+    public float knockbackDuration = 100;
+    public float knockbackPower = 1;
     public PlayerHealth playerHealth;
    
 
@@ -20,11 +22,13 @@ public class EnemyDamage : MonoBehaviour
    }
    private void OnCollisionEnter2D(Collision2D collision)
    {
-        if(collision.gameObject.tag == "Player")
+        var obj = collision.gameObject;
+        if (obj.CompareTag("Player"))
         {
-            playerHealth.TakeDamage(damage);
+            obj.GetComponent<PlayerHealth>().TakeDamage(damage);
+            StartCoroutine(obj.GetComponent<PlayerHealth>().Knockback(knockbackDuration, knockbackPower, transform));
         }
-   }
+    }
    public void TakeDamage(int damage)
    {
         health -= damage;

@@ -4427,6 +4427,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 1647044373}
+  currentFuel: {fileID: 11400000, guid: 4038ff23d993218488e37909f8c9c482, type: 2}
 --- !u!114 &1647044373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4695,6 +4696,12 @@ PrefabInstance:
       propertyPath: shootDelay
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 7915263302230232428, guid: cd90f6b74dd9cfb47b385c88bb009efd,
+        type: 3}
+      propertyPath: currentFuel
+      value: 
+      objectReference: {fileID: 11400000, guid: 4038ff23d993218488e37909f8c9c482,
+        type: 2}
     - target: {fileID: 7915263302230232428, guid: cd90f6b74dd9cfb47b385c88bb009efd,
         type: 3}
       propertyPath: onDeathExpl

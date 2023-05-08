@@ -5,17 +5,18 @@ using UnityEngine.UI;
 
 public class FuelScript : MonoBehaviour
 {
-public Slider slider;
+    public Slider slider;
+    public FloatSO currentFuel;
 
-    public void SetMaxFuel(float fuel)
+    private void Start()
     {
         slider.maxValue = 200f;
-        slider.value = fuel;
+        slider.value = currentFuel.Value;
     }
 
-    // Start is called before the first frame update
-    public void SetFuel(float fuel)
+    private void Update()
     {
-        slider.value = fuel;
+        slider.value = currentFuel.Value;
     }
+
 }

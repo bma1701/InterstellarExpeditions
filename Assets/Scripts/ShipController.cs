@@ -13,9 +13,8 @@ public class ShipController : MonoBehaviour
     public AudioClip laserGunSound; // LaserCannon shoot sound
     public float maxVelocity;
     public float rotationSpeed;
-    public float currentFuel;
+    public FloatSO currentFuel;
     public float startingFuel = 60f;
-    public FuelScript fuelBar;
     AudioSource thrusters; // thruster sound
     bool t_playing; 
     bool isDead = false; // bool for checking if ship is alive
@@ -30,10 +29,9 @@ public class ShipController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         startPos = transform.position;
-        currentFuel = startingFuel;
-        fuelBar.SetMaxFuel(startingFuel);
         startRotation = transform.rotation;
         thrusters = GetComponent<AudioSource>();
+
     }
 
     private void Update()
@@ -46,14 +44,13 @@ public class ShipController : MonoBehaviour
             ThrustForward(yAxis);
         Rotate(transform, xAxis * rotationSpeed);
         ClampVelocity();
-        if(currentFuel <= 9.5f)
+        if(currentFuel.Value <= 9.5f)
         {
             Die();
         }
         if(Input.GetKeyDown(KeyCode.P))
         {
-            currentFuel = 200f;
-            fuelBar.SetFuel(currentFuel);
+            currentFuel.Value = 200f;
         }
         if(Input.GetKey(KeyCode.W))
         {
@@ -132,8 +129,7 @@ public class ShipController : MonoBehaviour
         Vector2 force = transform.up * amount;
         rb.AddForce(force * 3
             );
-        currentFuel -= amount * 8 * Time.deltaTime;
-        fuelBar.SetFuel(currentFuel);
+        currentFuel.Value -= amount * 8 * Time.deltaTime;
     }
 
     private void Rotate(Transform t, float amount)
@@ -148,7 +144,7 @@ public class ShipController : MonoBehaviour
             thrusters.Stop();
         }
         AudioSource.PlayClipAtPoint(onDeathExpl, transform.position);
-        currentFuel = startingFuel;
+        currentFuel.Value = startingFuel;
         StartCoroutine(Respawn(3f));
     }
 
@@ -165,7 +161,6 @@ public class ShipController : MonoBehaviour
         isDead = false;
         transform.localScale = new Vector3(4,4,1);
         rb.simulated = true;
-        fuelBar.SetFuel(currentFuel);
     }
 
     IEnumerator ShootTimer()

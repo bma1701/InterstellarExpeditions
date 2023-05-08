@@ -11,4 +11,25 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Planet1.unity
     guid: 3a8ac0d76ca06294f9be253166cdb290
+  - enabled: 1
+    path: Assets/Scenes/Planet2.unity
+    guid: 2e20802f0b88e0648b553d2a6522f401
+  - enabled: 1
+    path: Assets/Scenes/Planet3.unity
+    guid: ed7e7b8bbe59eb6408909a05c8fce2f8
+  - enabled: 1
+    path: Assets/Scenes/Planet4.unity
+    guid: 00c6c5f7da8d5ac41a8a1c99d07fa67a
+  - enabled: 1
+    path: Assets/Scenes/Boss1.unity
+    guid: 91b4d29fecc420149b2c6eca3e7dd00c
+  - enabled: 1
+    path: Assets/Scenes/Boss2.unity
+    guid: 82c792e6e9636ee4f8aa7db2f7633126
+  - enabled: 1
+    path: Assets/Scenes/Boss3.unity
+    guid: 3cac5fc81d1aa28498fd7684d7970856
+  - enabled: 1
+    path: Assets/Scenes/Boss4.unity
+    guid: 70fafc6f4fabe8b40b5f8cbefc7b3a16
   m_configObjects: {}
